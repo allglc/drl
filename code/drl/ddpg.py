@@ -7,7 +7,6 @@ class DDPG():
     """ DDPG Agent from Lillicrap and al., 2016, Continuous Control with Deep Reinforcement Learning"""
     
     def __init__(self, env, neurons_per_layer, replay_memory_max_size, discount_factor, L2_coeff=0, LR_critic=0.001, LR_actor=0.0001, noise_std=0.1):
-        print('WARNING: ACTION RESCALE ONLY WORKS FOR 1 ACTION')
         
         nb_actions = np.prod(env.action_space.shape)
         dim_states = np.prod(env.observation_space.shape)
@@ -29,7 +28,7 @@ class DDPG():
                                       input_shape=(dim_states+nb_actions, )))           
         for i in range(len(neurons_per_layer)-1): 
             self.critic_network.add(Dense(neurons_per_layer[i+1], activation='relu', kernel_regularizer=regu, bias_regularizer=regu))
-        self.critic_network.add(Dense(1, activation='linear', kernel_regularizer=regu, bias_regularizer=regu,))
+        self.critic_network.add(Dense(1, activation='linear', kernel_regularizer=regu, bias_regularizer=regu))
         self.critic_network.compile(self.optimizer_critic, loss='mse')
         
         # Actor network
