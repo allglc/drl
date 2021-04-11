@@ -1,0 +1,27 @@
+{
+    "environment_name": "CartPole-v0",
+    "env_options": {
+        "seed": 123
+    },
+
+    "agent_name": "DQN",
+    "DQN": {
+        "gamma": 0.99,
+        "learning_rate": 0.001,
+        "buffer_size": 100000,
+        "exploration_fraction": 0.1,
+        "exploration_final_eps": 0.1, 
+        "exploration_initial_eps": 1,
+        "batch_size": 32, 
+        "double_q": false,
+        "learning_starts": 0,
+        "target_network_update_freq": 0.1,
+        "neurons_per_layer": [32, 32]
+    },
+
+    "training": {
+        "nb_train_steps": 2000,
+        "eval_every_n_steps": 1000,
+        "nb_eval_steps": 1000
+    }
+}
