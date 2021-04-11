@@ -156,9 +156,10 @@ class DQN():
         start_time = time.time()
         list_total_reward = []
         list_meanQ = []
+        list_steps = []
 
         # Train
-        for step_ in range(1, nb_training_steps+1):
+        for step in range(1, nb_training_steps+1):
 
             # Select action according to policy
             action = policy.select_action(state, self.q_network)
@@ -171,7 +172,7 @@ class DQN():
             state = state_next
 
             # Train network
-            self._train_network(policy, minibatch_size, target_network_update_period, nb_training_steps, step_)
+            self._train_network(policy, minibatch_size, target_network_update_period, nb_training_steps, step)
 
             # Save information
             total_reward += reward
@@ -186,8 +187,9 @@ class DQN():
                 # Save and print info
                 list_total_reward.append(total_reward)
                 list_meanQ.append(np.mean(self.q_network.predict(self.states_meanQ)))
+                list_steps.append(step)
                 # print('Training episode #{} done ({}/{} steps), elapsed time: {:.0f}s, total reward: {:.2f}, mean Q: {:.2f}'.format(
-                #     len(list_total_reward), step_, nb_training_steps, (time.time()-start_time), list_total_reward[-1], list_meanQ[-1]))
+                #     len(list_total_reward), step, nb_training_steps, (time.time()-start_time), list_total_reward[-1], list_meanQ[-1]))
                 # if hasattr(policy, 'epsilon'): print('   (epsilon = {:.2f})'.format(policy.epsilon))
                 # Reset environment
                 state = env.reset()
@@ -195,7 +197,7 @@ class DQN():
                 total_reward = 0
                 start_time = time.time()
 
-        return list_total_reward, list_meanQ
+        return list_total_reward, list_meanQ, list_steps
 
 
     def test(self, env, policy, nb_testing_steps, visualize=False):
