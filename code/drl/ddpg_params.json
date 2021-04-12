@@ -8,7 +8,7 @@
     "DDPG": {
         "gamma": 0.99,
         "learning_rate": 0.001,
-        "buffer_size": 100000,
+        "buffer_size": 1000000,
         "batch_size": 64, 
         "warmup_steps": 3000,
         "tau_update_target": 0.01,
@@ -19,7 +19,7 @@
     },
 
     "training": {
-        "nb_train_steps": 10000,
+        "nb_train_steps": 300000,
         "eval_every_n_steps": 1000,
         "nb_eval_steps": 1000
     }
